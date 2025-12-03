@@ -1,11 +1,23 @@
 <% content_for :title, "New post" %>
 
-<h1>New post</h1>
+<h1>새 글 쓰기</h1>
 
-<%= render "form", post: @post %>
 
-<br>
+<%= form_with model: @post do |form| %>
+  <div style="margin-bottom: 10px;">
+    <%= form.label :title, "제목" %> <br>
+    <%= form.text_field :title %>
+  </div>
 
-<div>
-  <%= link_to "Back to posts", posts_path %>
-</div>
+  <div style="margin-bottom: 10px;">
+    <%= form.label :content, "내용" %> <br>
+    <%= form.text_area :content %>
+  </div>
+
+  <div>
+    <%= form.submit "저장하기" %>
+  </div>
+<% end %>
+
+<hr>
+<a href="/posts">목록으로 돌아가기</a>
