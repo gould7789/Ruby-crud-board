@@ -2,19 +2,31 @@
 
 <h1>새 글 쓰기</h1>
 
-
+<%# @post가 비어있으면 "새 글 작성(create)" 모드로 %>
+<%# 내용이 있으면 "수정(update)"모드로 알아서 변신 %>
 <%= form_with model: @post do |form| %>
   <div style="margin-bottom: 10px;">
+    <%# 제목 입력란(라벨 + 한 줄 입력칸) %>
+    <%# 입력창 옆에 "제목"이라는 글시를 붙여줌 %>
+    <%# 시각장애인용 스크린 리더 등을 위해서도 필수 %>
     <%= form.label :title, "제목" %> <br>
+    <%# HTML의 <input type="text">를 생성 %>
+    <%# 여기 쓴 글은 DB의 title 칸으로 들어감 %>
     <%= form.text_field :title %>
   </div>
 
   <div style="margin-bottom: 10px;">
+    <%# 내용 입력란 (라벨 + 여러 줄 입력칸) %>
     <%= form.label :content, "내용" %> <br>
+    <%# HTML의 <textarea>를 생성 %>
+    <%# 글 내용처럼 긴 텍스트를 쓸 때 사용 %>
+    <%# DB의 content 칸과 연결됨  %>
     <%= form.text_area :content %>
   </div>
 
   <div>
+    <%# 전송 버튼 %>
+    <%# 클릭하면 입력한 데이터들을 컨트롤러의 create 액션으로 보냄 %>
     <%= form.submit "저장하기" %>
   </div>
 <% end %>
