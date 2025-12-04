@@ -1,0 +1,14 @@
+# 한국어 설정
+ko:
+  # 에러 메시지를 합칠 때 띄어쓰기 제거
+  errors:
+    format: "%{attributes}%{message}"
+
+  # DB랑 관련된 단어들
+  activerecord:
+    attributes:
+      # Post 모델에서 쓰는 단어들
+      post:
+        # title, content를 대체 단어로 부르게 하기
+        title: "제목"
+        content: "내용"
