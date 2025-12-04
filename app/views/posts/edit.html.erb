@@ -1,15 +1,20 @@
-<% content_for :title, "Editing post" %>
+<%# 해당 페이지의 탭 이름을 변경 %>
+<% content_for :title, "게시글 수정하기" %>
 
 <h1>글 수정하기</h1>
 
+<%# @post에는 이미 DB에서 찾아온 데이터(id = 1 등)가 들어있음 %>
+<%# 따라서 레일즈는 자동으로 '수정 모드'로 폼을 만들고, 칸마다 기존 내용을 채워줌 %>
 <%= form_with model: @post do |f| %>
     <div style="margin-bottom: 10px;">
         <%= f.label :title, "제목" %> <br>
+        <%# 기존 제목이 input칸 안에 value="..."로 자동으로 들어감 %>
         <%= f.text_field :title %>
     </div>
 
     <div style="margin-bottom: 10px;">
         <%= f.label :content, "내용" %> <br>
+        <%# 기존 내용이 textarea 안에 자동으로 들어감 %>
         <%= f.text_area :content %>
     </div>
 
@@ -20,5 +25,6 @@
 
 <hr>
 
+<%# 취소 버튼: 수정을 포기하고 다시 상세 페이지로 돌아감 %>
 <a href="/posts/<%= @post.id %>">취소하고 글 보기 / </a>
 <a href="/posts">목록으로 돌아가기</a>
