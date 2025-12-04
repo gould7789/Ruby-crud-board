@@ -28,7 +28,7 @@ class PostsController < ApplicationController
       # 저장에 성공하면?
       if @post.save
         # 방금 쓴 글의 상세 페이지(@post)로 이동
-        format.html { redirect_to @post, notice: "Post was successfully created." }
+        format.html { redirect_to @post, notice: "게시글을 작성했습니다!" }
         format.json { render :show, status: :created, location: @post }
       # 저장이 실패하면? (제목이 비었거나 등등)
       else
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: "Post was successfully updated.", status: :see_other }
+        format.html { redirect_to @post, notice: "게시글을 수정했습니다!", status: :see_other }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
     @post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to posts_path, notice: "Post was successfully destroyed.", status: :see_other }
+      format.html { redirect_to posts_path, notice: "게시글을 삭제했습니다!", status: :see_other }
       format.json { head :no_content }
     end
   end
