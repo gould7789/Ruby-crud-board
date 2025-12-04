@@ -23,5 +23,11 @@ module CrudBoard
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # 기본 언어를 한국어(:ko)로 설정
+    config.i18n.default_locale = :ko
+
+    # 번역 파일을 다 읽어오게 함
+    config.i18n.load_path += Dir[Rails.root.join('config', 'lopcales', '**', '*.{rb, tml}')]
   end
 end
