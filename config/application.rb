@@ -28,6 +28,6 @@ module CrudBoard
     config.i18n.default_locale = :ko
 
     # 번역 파일을 다 읽어오게 함
-    config.i18n.load_path += Dir[Rails.root.join('config', 'lopcales', '**', '*.{rb, tml}')]
+    config.i18n.load_path += Dir[Rails.root.join("config", "lopcales", "**", "*.{rb, tml}")]
   end
 end
