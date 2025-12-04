@@ -2,7 +2,7 @@
 ko:
   # 에러 메시지를 합칠 때 띄어쓰기 제거
   errors:
-    format: "%{attributes}%{message}"
+    format: "%{attribute}%{message}"
 
   # DB랑 관련된 단어들
   activerecord:
