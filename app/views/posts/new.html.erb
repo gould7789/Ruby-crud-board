@@ -45,7 +45,7 @@
     <%# HTML의 <textarea>를 생성 %>
     <%# 글 내용처럼 긴 텍스트를 쓸 때 사용 %>
     <%# DB의 content 칸과 연결됨  %>
-    <%= form.text_area :content %>
+    <%= form.text_area :content, rows: 10, style: "width: 100%; box-sizing: border-box;" %>
   </div>
 
   <div>
