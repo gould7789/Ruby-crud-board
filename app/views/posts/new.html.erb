@@ -1,6 +1,30 @@
-<% content_for :title, "New post" %>
+<% content_for :title, "게시글 작성" %>
 
 <h1>새 글 쓰기</h1>
+
+<%# 글 작성 기준을 위반 했을 때 에러 메세지 표시 %>
+<%# 유효성 검사 실패 확인 %>
+<%# @post.errors: 모델이 검사하다가 발견한 에러들이 담긴 바구니 %>
+<%# .any?: 바구니에 에러가 하나라도 있니? (없으면 블록은 실행 안 됨) %>
+<% if @post.errors.any? %>
+  <div style="border: 2px solid red; padding: 10px; margin-bottom: 
+  20px; color: red;">
+    
+    <%# 에러 개수 알려주기 %>
+    <%# .count: 에러가 총 몇개인지 개수를 셈 %>
+    <h3>저장하지 못 했습니다. (<%= @post.errors.count %>개의 오류)</h3>
+
+    <ul>
+      <%# 에러 내용 하나씩 꺼내기 (반복문) %>
+      <%# .full_messages: "제목은 필수입니다" 같이 완선된 문장들을 가져옴 %>
+      <%# .each do |msg|: 문장을 하나씩 꺼내서 'msg' 변수에 담고 반복함 %>
+      <% @post.errors.full_messages.each do |msg| %>
+        <%# 에러 문장 화면에 찍기 %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%# @post가 비어있으면 "새 글 작성(create)" 모드로 %>
 <%# 내용이 있으면 "수정(update)"모드로 알아서 변신 %>
