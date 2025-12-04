@@ -1,10 +1,41 @@
+<%# 탭 제목을 글 제목으로 설정 %>
+<% content_for :title, @post.title %>
+
 <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
+<div class="post-detail">
+  <%# 글 제목 %>
+  <h1><%= @post.title %></h1>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
+  <hr>
 
-  <%= button_to "Destroy this post", @post, method: :delete %>
+  <%# 본문 %>
+  <%# simple_format: 사용자가 엔터친 것을 <br> 태그로 바꿔서 줄바꿈을 유지해줌 %>
+  <div style="padding: 20px 0; min-height: 200px; font-size: 1.1em;">
+    <%= simple_format(@post.content) %>
+  </div>
+
+  <hr>
+
+  <%# 버튼들 %>
+  <%# display: flex를 써서 버튼들을 가로로 나란히 배치함 %>
+  <div class="buttons" style="display: flex; gap: 10px;">
+    <%# 목록으로 가기 %>
+    <%# link_to 뒤에 주소를 적고, do ~ end 사이에 보여줄 모양(버튼)을 넣음 %>
+    <%= link_to posts_path do %>
+      <button style="cursor: pointer;">목록으로</button>
+    <% end %>
+
+    <%# 수정하기 %>
+    <%# 주소 도우미(Path Helper) -> edit_post_path: 이 글(@post)의 수정 페이지 가져옴 %>
+    <%= link_to edit_post_path(@post) do %>
+      <button style="cursor: pointer;">수정</button>
+    <% end %>
+
+    <%# 삭제 버튼 (핵심!) %>
+    <%# link_to가 '삭제 요청' 기능을 맡고, 화면에는 '빨간 버튼'을 보여줌 %>
+    <%= link_to @post, data: { turbo_method: :delete, turbo_confirm: "정말 삭제하시겠습니까?" } do %>
+      <button style="color: red; cursor: pointer;">삭제</button>
+    <% end %>
+  </div>
 </div>
