@@ -1,39 +1,42 @@
-<%# 알림을 보여주는 코드 %>
-<%# 컨트롤러가 notice라는 변수에 메시지를 담아 보내면 여기에 메시지를 띄움 %>
-<p style="color: green"><%= notice %></p>
-
-<%# 페이지의 타이틀 지정 %>
-<% content_for :title, "Posts" %>
-
-<%# 게시글 총 개수 표시하기 %>
-<%# @posts: 컨트롤러에서 넘겨운 게시글 보따리 %>
-<%# .count: 보따리 안에 글이 몇 개인이 셈 %>
-<h1>루비 첫 게시판 (총 <%= @posts.count %>개의 글)</h1>
-
-<%# /posts/new 주소(글 작성 페이지)로 이동 %>
-<a href="/posts/new" class="btn btn-primary">새 글 쓰기</a>
-
-<hr>
-
-<div id="posts">
-  <%# 반복문으로 게시글 보여주기 %>
-  <%# @posts: 게시글 보따리 %>
-  <%# .each do |post|: 보따리에서 하나씩 꺼내서 post라고 부르면서 반복 %>
-  <% @posts.each do |post| %>
-    <div class="post-box" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
-      <%# 링크 주소를 만듦 %>
-      <%# 첫 번째 글이면 /posts/1, /posts/2... 이렇게 id 번호가 자동으로 들어감 %>
-      <%# post.title: post 바구에서 베목만 꺼내서 화면에 글자로 찍음 %>
-      <h2><a href="/posts/<%= post.id %>"><%= post.title %></a></h2>
-      <%# 본문을 보여줌 %>
-      <p><%= post.content %></p>
-
-      <small>
-        <%# /edit: 수정 페이지로 가는 링크 ex) /posts/1/edit %>
-        <a href="/posts/<%= post.id %>/edit">수정</a>
-        <%# data-method="delete": 이 속성이 잇으면 이 글을 폭파해라라는 신호를 레일즈에게 보냄 %>
-        <a href="/posts/<%= post.id %>" data-method="delete">삭제</a>
-      </small>
-    </div>
-  <% end %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>자유 게시판</h1>
+  <%= link_to  "새 글 쓰기", new_post_path, class: "btn btn-primary" %>
 </div>
+
+
+<% if notice %>
+  <div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<table class="table table-hover table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col" style="width: 10%;">번호</th>
+      <th scope="col">제목</th>
+      <th scope="col" style="width: 20%;">관리</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%# |post,index| -> 게시글(post)과 인덱스(index)를 같이 꺼냅니다 %>
+    <% @posts.each_with_index do |post, index| %>
+      <tr>
+        <th><%= index + 1 %></th>
+
+        <td>
+          <%= link_to  post.title, post, class: "text-decoration-none text-dark fw-bold" %>
+        </td>
+        <td>
+          <div class="d-flex gap-2">
+            <%= link_to  "수정", edit_post_path(post), class: "btn btn-sm btn-outline-warning" %>
+
+            <%= link_to post, 
+            data: { turbo_method: :delete, turbo_confirm: "정말 삭제하시겠습니까?" }, 
+            class: "btn btn-sm btn-outline-danger" do %>
+            삭제  
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
