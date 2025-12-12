@@ -1,19 +1,49 @@
+<%# 1. 블라우저 탭 제목 설정 (layouts/application.html.erb로 전달됨) %>
+<%# content_for :title -> 레이아웃 파일의 <title> 태그 부분에 텍스트를 넣음%>
 <% content_for :title, "게시글 작성" %>
 
+<%# 2. 전체 레이아웃 (그리드 시스템) %>
+<%# row: 가로 줄(Row)를 만듭니다. 그리드 시스템의 시작점입니다. %>
+<%# justify-content-center: 가로 줄 안의 내용물들을 '가운데 정렬'함 (좌우 여백을 자동으로 맞춤) %>
 <div class="row justify-content-center">
+
+  <%# col-lg-8: 화면 크기별로 너비를 다르게 설정함 %>
+  <%# lg(Large): 큰 화면(노트북/데스크탑)에서는 12칸 중 '8칸'만 차지함 (너무 넓으면 읽기 힘들기 때문) %>
+  <%# 기본: 모바일에서는 자동으로 12칸(전체 너비)을 차지함 %>
   <div class="col-lg-8">
+
+    <%# 3. 헤어 영역 (제목 + 취소 버튼) %>
+    <%# d-flex: Flexbox를 킴 (요소들을 가로로 배치하기 위해) %>
+    <%# justity-content-between: 제목은 왼쪽 끝, 버튼은 오른쪽 끝으로 양분해서 밀어냄 %>
+    <%# align-items-center: 제목과 버튼의 높이 중심(수직 중앙)을 맞춰줌 %>
+    <%# mb-4: 아래쪽(Bottom)에 여백(Margin)을 4단계만큼 줌 %>
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1>새 글 쓰기</h1>
+
+      <%# link_to: <a> 태그를 만드는 레일즈 헬퍼 %>
+      <%# posts_path: '/posts' 주소로 이동 (목록 화면) %>
+      <%# btn-outline-secondary: 배경색 없이 회색 테두리만 있는 차분한 버튼 스타일 %>
       <%= link_to  "목록으로", posts_path, class:"btn btn-outline-secondary" %>
     </div>
 
+    <%# 4. 에러 메시지 영역 (조건부 렌더링) %>
+    <%# @post.errors.any?: 모델 유효성 검사 실패 시, 에러가 하나라도 있으면 참(True) %>
     <% if @post.errors.any? %>
+
+      <%# alert: 알림 상자 기본 디자인 %>
+      <%# alert-danger: 빨간색(위험/에러) 테마 적용 %>
       <div class="alert alert-danger" role="alert">
+
+        <%# alert-heading: 알림 상자의 제목 스타일 %>
+        <%# @post.errors.count: 발생한 에러의 총 개수 %>
         <h4 class="alert-heading">
           저장하지 못했습니다! (<%= @post.errors.count %>) 개의 오류
         </h4>
         <hr>
+
+        <%# mb-0: 리스트(ul) 밑에 생기는 기본 역백을 0으로 없앰 (박스 밖으로 여백이 안 나가게) %>
         <ul class="mb-0">
+          <%# full_messages: "제목은 필수입니다" 처럼 완성된 문장을 하나씩 꺼내옴 %>
           <% @post.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
           <% end %>
@@ -21,26 +51,58 @@
       </div>
     <% end %>
 
+    <%# 5. 입력 폼 영역 (카드 디자인) %>
+    <%# card: 테두리가 있는 흰색 박스 컴포넌트 %>
+    <%# shadow-sm: 박스 뒤에 옅은 그림자(Shadow Small)를 줘서 입체감을 살림 %>
     <div class="card shadow-sm">
+
+      <%# card-body: 카드 내부의 콘텐으 영역 (이게 없으면 테두리에 글자가 딱 붙음) %>
+      <%# p-4: 안쪽 여백(Padding)을 4단계만큼 넉넉하게 줌 %>
       <div class="card-body p-4">
+
+
+        <%# 폼 시작 (레일즈 폼 빌더) %>
+        <%# form_with: 레일즈의 강력한 폼 빌더 %>
+        <%# model: @post -> @post가 비어있으면 'create(생성)', 채워져있으면 'update(수정)' 주소를 자동 선택함 %>
+        <%# |f|: 폼 빌더 객체를 'f'라는 변수로 사용하겠다는 뜻 %>
         <%= form_with model: @post do |f| %>
 
-            <div class="mb-3">
+            <%# 제목 입력란 %>
+            <div class="mb-3">  <%# 입력란끼리 간격 띄우기 %>
+              <%# f.label: <label> 태그 생성 %>
+              <%# fw-bold: 글씨 두께를 굵게(Font Weight Bold) 설정 %>
               <%= f.label :title, "제목", class: "form-label fw-bold" %>
+
+              <%# f.text_field: 한 줄 입력칸(<input type="text">) 생성 %>
+              <%# form-control: 부트스트랩의 입력창 표준 스타일 (둥근 모서리, 클릭 시 파란 테두리) %>
+              <%# form-control-lg: 입력창 높이를 큼지막하게(Large) 키움 %>
               <%= f.text_field :title, class: "form-control form-control-lg", placeholder: "제목을 입력하세요" %>
             </div>
 
+            <%# 내용 입력란 %>
             <div class="mb-4">
               <%= f.label :content, "내용", class: "form-label fw-bold" %>
+
+              <%# f.text_area: 여러 줄 입력칸(<textarea> 생성) %>
+              <%# rows: 10 -> 입력창의 기본 높이를 10줄 정도로 설정 %>
               <%= f.text_area :content, rows: 10, class: "form-control", placeholder: "내용을 입력해주세요" %>
             </div>
 
+            <%# 저장 버튼 %>
+            <%# d-grid: 버튼을 벽돌(Block) 처럼 만들어서 가로 폭을 100% 채움 %>
             <div class="d-grid">
+
+              <%# f.submit: 저장 버튼(<input type="submit"> 생성) %>
+              <%# btn-primary: 파란색(메인) 색상 적용 %>
+              <%# btn-lg: 버튼 크기를 크게 설정 %>
               <%= f.submit "저장하기", class: "btn btn-primary btn-lg"%>
             </div>
 
         <% end %>
+        <%# 폼 종료 %>
       </div>
     </div>
+    <%# 카드 종료 %>
+
   </div>
 </div>
