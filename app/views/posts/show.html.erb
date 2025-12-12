@@ -1,41 +1,67 @@
-<%# 탭 제목을 글 제목으로 설정 %>
+<%# 1. 브라우저 탭 제목을 게시글 제목으로 설정 %>
 <% content_for :title, @post.title %>
 
+<%# 안내 메시지 %>
 <p style="color: green"><%= notice %></p>
 
-<div class="post-detail">
-  <%# 글 제목 %>
-  <h1><%= @post.title %></h1>
+<%# 2. 전체 레이아웃 (가운데 정렬 + 너비 제한) %>
+<%# row: 가로 줄 생성 %>
+<%# justify-content-center: 내용을 화면 가운데로 모음 %>
+<div class="row justify-content-center">
 
-  <hr>
+  <%# col-lg-8: 큰 화면에서 8칸 너비만 차지하게 함 (글 읽기 가장 편한 너비) %>
+  <div class="col-lg-8">
 
-  <%# 본문 %>
-  <%# simple_format: 사용자가 엔터친 것을 <br> 태그로 바꿔서 줄바꿈을 유지해줌 %>
-  <div style="padding: 20px 0; min-height: 200px; font-size: 1.1em;">
-    <%= simple_format(@post.content) %>
-  </div>
+    <%# 3. 상단 헤더 영역 (제목 + 목록 버튼) %>
+    <%# d-flex ... : 제목과 버튼을 양끝으로 배치하고 높이 중앙 정렬 %>
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-  <hr>
+      <%# 제목을 굵고 크게 표시 %>
+      <%# text-break: 제목이 너무 길면 자동으로 줄바꿈 (박스를 뚫고 나가는 것을 방지) %>
+      <h1 class="fw-bold text-break"><%= @post.title %></h1>
 
-  <%# 버튼들 %>
-  <%# display: flex를 써서 버튼들을 가로로 나란히 배치함 %>
-  <div class="buttons" style="display: flex; gap: 10px;">
-    <%# 목록으로 가기 %>
-    <%# link_to 뒤에 주소를 적고, do ~ end 사이에 보여줄 모양(버튼)을 넣음 %>
-    <%= link_to posts_path do %>
-      <button style="cursor: pointer;">목록으로</button>
-    <% end %>
+      <%# 목록으로 돌아가는 버튼 (회색 테두리) %>
+      <%= link_to  "목록으로", posts_path, class:"btn btn-outline-secondary" %>
+    </div>
 
-    <%# 수정하기 %>
-    <%# 주소 도우미(Path Helper) -> edit_post_path: 이 글(@post)의 수정 페이지 가져옴 %>
-    <%= link_to edit_post_path(@post) do %>
-      <button style="cursor: pointer;">수정</button>
-    <% end %>
+    <%# 4. 본문 카드 영역 %>
+    <%# card: 흰색 박스 배경 %>
+    <%# shadow-sm: 살짝 그림자를 줘서 종이가 떠 있는 느낌 %>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body p-4"> <%# (옵션) 작성일 표시 %>
+        <%# text-muted: 글씨를 회색으로 연하게 처리 %>
+        <div class="text-muted mb-3 d-flex justify-content-between">
+          <span>작성자: 익명</span>
 
-    <%# 삭제 버튼 (핵심!) %>
-    <%# link_to가 '삭제 요청' 기능을 맡고, 화면에는 '빨간 버튼'을 보여줌 %>
-    <%= link_to @post, data: { turbo_method: :delete, turbo_confirm: "정말 삭제하시겠습니까?" } do %>
-      <button style="color: red; cursor: pointer;">삭제</button>
-    <% end %>
+          <%# created_at.strftime: 날짜를 '년-월-일' 형식으로 예쁘게 변환 %>
+          <span><%= @post.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+        </div>
+
+        <hr>
+
+        <%# 본문 내용 %>
+        <%# py-3: 위아래(Padding Y-axis) 여백 3단계 %>
+        <%# min-height: 글이 짧아도 최소 높이는 유지 (디자인이 깨지지 않게 ) %>
+        <div class="py-3 text-break" style="min-height: 200px; font-size: 1.1rem; line-height: 1.6;">
+          <%# simple_format: 엔터(\n)를 <br>태그로 바꿔서 줄바꿈 유지 %>
+          <%= simple_format(@post.content) %>
+        </div>
+      </div>
+    </div>
+
+    <%# 5. 하단 버튼 영역 (수정 /삭제) %>
+    <%# d-flex justify-content-end: 버튼들을 오른쪽 끝으로 보냄 %>
+    <%# gap-2: 버튼 사이 간격 띄우기 %>
+    <div class="d-d-flex justify-content-end gap-2">
+
+      <%# 수정 버튼: 노란색(Warning) %>
+      <%= link_to  "수정하기", edit_post_path(@post), class:"btn btn-warning px-4 fw-bold" %>
+
+      <%# 삭제 버튼: 빨간색(Danger) + Turbo 기능 사용 %>
+      <%= link_to @post, data: { turbo_method: :delete, turbo_confirm: "정말 삭제하시겠습니까?" }, 
+      class: "btn btn-danger px-4 fw-bold" do %>
+        삭제
+      <% end %>
+    </div>
   </div>
 </div>
