@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     # 게시판 글 목록을 생성일(created_at)기준 내림차순(:desc)으로 정리
-    @posts = Post.order(create_at: :desc)
+    @posts = Post.order(created_at: :desc)
   end
 
   # GET /posts/1 or /posts/1.json
