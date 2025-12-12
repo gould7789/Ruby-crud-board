@@ -24,6 +24,9 @@ module CrudBoard
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # 한국 시간 설정
+    config.time_zone = "Seoul"
+
     # 기본 언어를 한국어(:ko)로 설정
     config.i18n.default_locale = :ko
 
