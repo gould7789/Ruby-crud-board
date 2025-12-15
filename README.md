@@ -10,7 +10,7 @@
 * **Framework**: Ruby on Rails 7
 * **Language**: Ruby
 * **Frontend**: ERB, Bootstrap 5.3 (CDN)
-* **Database**: PostresQL (Default)
+* **Database**: PostresQL
 * **IDE**: VS Code
 
 ---
@@ -46,20 +46,20 @@
 ### 1. 메인 목록 페이지 (Index)
 > 깔끔한 테이블 디자인과 최신순 번호 정렬
 
-![메인 목록 화면](./images/index_page.png)
-*(여기에 캡처한 목록 이미지를 넣어주세요)*
+<img width="1569" height="721" alt="image" src="https://github.com/user-attachments/assets/ff6bbe05-4714-4f74-a792-b649ccb243e5" />
+
 
 ### 2. 글 작성 페이지 (New)
 > 카드형 폼 디자인과 유효성 검사 에러 메시지
 
-![글 작성 화면](./images/new_page.png)
-*(여기에 에러 메시지가 뜬 작성 화면이나, 입력 폼 이미지를 넣어주세요)*
+<img width="1331" height="847" alt="image" src="https://github.com/user-attachments/assets/73da0244-9c77-45ea-8e79-d7fae039b8c9" />
+
 
 ### 3. 상세 조회 페이지 (Show)
 > 읽기 편한 카드 뷰와 하단 버튼 배치
 
-![상세 조회 화면](./images/show_page.png)
-*(여기에 상세 페이지 이미지를 넣어주세요)*
+<img width="1380" height="591" alt="image" src="https://github.com/user-attachments/assets/d4d44800-7725-4f36-819e-2aae29c10fd9" />
+
 
 ---
 
