@@ -1,92 +1,101 @@
-# 📝 Rails CRUD Board (게시판 프로젝트)
+# Rails CRUD Board (掲示板アプリケーション)
 
-루비 온 레일즈(Ruby on Rails) 학습을 위해 제작한 **CRUD 게시판**입니다.
-기본적인 게시글 작성, 조회, 수정, 삭제(CRUD) 기능을 구현하였으며, **Bootstrap 5**를 적용하여 깔끔하고 반응형인 UI를 구성했습니다.
+Ruby on Railsの学習用に開発した**CRUD機能付き掲示板アプリケーション**です。
+基本的な投稿機能（作成、閲覧、編集、削除）を実装し、**Bootstrap 5**を使用してUIを構築しました。
 
 ---
 
-## 🛠️ Tech Stack (사용 기술)
+## Tech Stack (使用技術)
 
-* **Framework**: Ruby on Rails 7
+* **Framework**: Ruby on Rails
 * **Language**: Ruby
-* **Frontend**: ERB, Bootstrap 5.3 (CDN)
-* **Database**: PostresQL
+* **Frontend**: ERB, Bootstrap
+* **Database**: PostgreSQL
 * **IDE**: VS Code
 
 ---
 
-## ✨ Key Features (주요 기능)
+## Key Features (主な機能)
 
-### 1. 게시글 CRUD
-* **Create**: 새로운 게시글 작성
-* **Read**: 전체 글 목록 조회 (최신순 정렬) 및 상세 조회
-* **Update**: 게시글 내용 수정
-* **Delete**: 게시글 삭제 (Turbo Confirm 적용)
+### 1. 掲示板の基本機能 (CRUD)
+* **Create (作成)**: 新規投稿の作成。
+* **Read (閲覧)**: 全投稿の一覧表示（**最新順**にソート）および詳細表示。
+* **Update (編集)**: 既存の投稿内容の修正。
+* **Delete (削除)**: 投稿の削除（Turbo Confirmによる確認アラート付き）。
 
-### 2. UI/UX Design
-* **Bootstrap 5 적용**: Navbar, Card, Button, Table 등 모던한 컴포넌트 사용.
-* **반응형 레이아웃**: Grid System(`col-lg-8` 등)을 활용하여 모바일과 데스크탑 환경 모두 지원.
-* **가독성 개선**: `simple_format`을 이용한 줄바꿈 처리 및 타이포그래피 설정.
+### 2. UI/UX デザイン
+* **Bootstrap 5 適用**: Navbar、Card、Button、Tableなどのコンポーネントを活用し、モダンなデザインを構築。
+* **レスポンシブ対応**: Grid System (`col-lg-8` 等) を使用し、PCとモバイルの両方に対応。
+* **可読性の向上**: `simple_format` ヘルパーを使用し、改行を含む長文も適切に表示。また、タイポグラフィも見やすく設定。
 
-### 3. 기능 고도화
-* **Validation (유효성 검사)**:
-    * 제목(Title) 필수 입력.
-    * 내용(Content) 필수 입력 및 최소 길이(5자) 제한.
-    * 에러 발생 시 Bootstrap Alert 창으로 직관적인 피드백 제공.
-* **I18n (국제화)**:
-    * 기본 언어를 한국어(`ko`)로 설정.
-    * 에러 메시지 및 시간 포맷을 한국 정서에 맞게 커스터마이징 (`ko.yml`).
-    * 조사 처리("은/는" 등)를 자연스럽게 수정.
-* **Timezone**: 서버 시간을 `Seoul`로 설정하여 작성 시간이 한국 시간으로 정확히 표시됨.
-
----
-
-## 📸 Screen Shots (실행 화면)
-
-### 1. 메인 목록 페이지 (Index)
-> 깔끔한 테이블 디자인과 최신순 번호 정렬
-
-<img width="1569" height="721" alt="image" src="https://github.com/user-attachments/assets/ff6bbe05-4714-4f74-a792-b649ccb243e5" />
-
-
-### 2. 글 작성 페이지 (New)
-> 카드형 폼 디자인과 유효성 검사 에러 메시지
-
-<img width="1331" height="847" alt="image" src="https://github.com/user-attachments/assets/73da0244-9c77-45ea-8e79-d7fae039b8c9" />
-
-
-### 3. 상세 조회 페이지 (Show)
-> 읽기 편한 카드 뷰와 하단 버튼 배치
-
-<img width="1380" height="591" alt="image" src="https://github.com/user-attachments/assets/d4d44800-7725-4f36-819e-2aae29c10fd9" />
-
+### 3. 機能強化・詳細設定
+* **バリデーション (Validation)**:
+    * タイトル：必須入力。
+    * 内容：必須入力、かつ最小文字数制限（5文字以上）。
+    * エラー発生時、Bootstrapのアラート機能で直感的なフィードバックを表示。
+* **国際化 (I18n)**:
+    * デフォルト言語を韓国語(`ko`)に設定。
+    * エラーメッセージや時刻表示フォーマットを現地の情緒に合わせてローカライズ（`ko.yml`）。
+    * 助詞の処理（"は/が"など）を自然な表現に修正。
+* **タイムゾーン (Timezone)**:
+    * サーバー時間を `Seoul` (UTC+09:00) に設定し、作成日時を正確に表示。
 
 ---
 
-## 📂 Project Structure (주요 코드)
+## Architecture & Database (設計・構造)
 
-* **Controller**: `posts_controller.rb` - 최신순 정렬(`order(created_at: :desc)`) 및 CRUD 액션 처리.
-* **Model**: `post.rb` - `validates`를 통한 데이터 무결성 검사.
+### 1. Database Schema
+<img width="300" height="300" alt="image" src="https://github.com/user-attachments/assets/6307449c-e7e9-4b3e-9a8e-dc28a8d0713d" />
+
+### 2. Data Flow (処理フロー)
+ユーザーが「新規投稿」を行い、保存されるまでのMVC（Model-View-Controller）の処理フローです。
+<img width="1331" height="847" alt="시스템 흐름 - 일본어 버전" src="https://github.com/user-attachments/assets/386a4dd6-2548-4e47-a09d-760cc8eac664" />
+
+---
+
+## Screen Shots (実行画面)
+
+### 1. メイン一覧ページ (Index)
+> シンプルなテーブルデザインと、最新順のソート機能。
+
+<img width="1331" height="847" alt="index" src="https://github.com/user-attachments/assets/13296921-0381-458c-ab0d-0d66619ab6cd" />
+
+### 2. 新規投稿ページ (New)
+> カード型の入力フォームと、バリデーションエラー表示。
+
+<img width="1331" height="847" alt="new" src="https://github.com/user-attachments/assets/0c5d6f7a-3c0f-43f0-83bb-ff893d7d0f32" />
+
+### 3. 詳細ページ (Show)
+> 読みやすいレイアウトと、下部に配置された管理ボタン。
+
+<img width="1331" height="847" alt="show" src="https://github.com/user-attachments/assets/606ebccd-1b64-4ea4-bdfc-ed3e3b005ebb" />
+
+---
+
+## Project Structure (主要ディレクトリ構成)
+
+* **Controller**: `posts_controller.rb` - 最新順ソート(`order(created_at: :desc)`) および CRUDアクションの処理。
+* **Model**: `post.rb` - `validates` を使用したデータの整合性チェック。
 * **View**:
-    * `layouts/application.html.erb`: Navbar 및 전체 레이아웃 설정.
-    * `posts/new.html.erb`: `form_with`와 Bootstrap Form을 결합한 입력 UI.
-* **Config**: `application.rb` (Timezone 설정), `locales/ko.yml` (한글 번역).
+    * `layouts/application.html.erb`: Navbarおよび全体のレイアウト設定。
+    * `posts/new.html.erb`: `form_with` と Bootstrap Form を組み合わせた入力UI。
+* **Config**: `application.rb` (Timezone設定), `locales/ko.yml` (韓国語翻訳ファイル)。
 
 ---
 
-## 🚀 How to Run (실행 방법)
+## How to Run (実行方法)
 
 ```bash
-# 1. 저장소 클론
-git clone [레포지토리 주소]
+# 1. リポジトリのクローン
+git clone [リポジトリのURL]
 
-# 2. 젬 설치
+# 2. Gemのインストール
 bundle install
 
-# 3. 데이터베이스 마이그레이션
+# 3. データベースのマイグレーション
 rails db:migrate
 
-# 4. 서버 실행
+# 4. サーバーの起動
 ./bin/dev
-# 또는
+# または
 rails s
