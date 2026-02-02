@@ -49,7 +49,7 @@ Ruby on Railsの学習用に開発した**CRUD機能付き掲示板アプリケ�
 
 ### 2. Data Flow (処理フロー)
 ユーザーが「新規投稿」を行い、保存されるまでのMVC（Model-View-Controller）の処理フローです。
-<img width="1331" height="847" alt="시스템 흐름 - 일본어 버전" src="https://github.com/user-attachments/assets/386a4dd6-2548-4e47-a09d-760cc8eac664" />
+<img width="1331" height="847" alt="flow" src="https://github.com/user-attachments/assets/bbe7874d-067a-4999-86bd-9ad1655553e3" />
 
 ---
 
