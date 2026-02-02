@@ -1,24 +1,32 @@
+<%# 레일즈가 post가 새 글인지(new), 이미 있는 글인지(edit)를 자동으로 눈치챔 %>
+<%# Post.new이면 자동으로 create 액션 주소(/posts)로 보냄 %>
+<%# 옛날 글(Post.find)이면 자동으로 update 액션 주소(/posts/1)로 보냄 %>
+<%# 그래서 new.html.erb와 edit.html.erb가 이 파일 하나를 공유해서 쓸 수 있는 것임 %>
 <%= form_with(model: post) do |form| %>
+  <%# post의 에러 바구니에 에러가 없으면 이 부분은 화면에 나오지 않음 %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
         <% post.errors.each do |error| %>
+          <%# 모델에 적어둔 validates 메시지를 화면에 출력 %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+  <%# 입력창 만들기 %>
+  <%# 루비 코드로 적어두면, 사용자가 보는 브라우저에서는 HTML 태그로 변환됨 %>
   <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.label :title, style: "display: block" %> <%# 제목표 %>
+    <%= form.text_field :title %> <%# 짧은 입력칸 %>
   </div>
 
   <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.textarea :content %>
+    <%= form.label :content, style: "display: block" %> <%# 긴 입력칸 %>
+    <%= form.textarea :content %> <%# 제출 버튼 %>
   </div>
 
   <div>
