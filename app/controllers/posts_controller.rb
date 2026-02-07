@@ -72,6 +72,7 @@ class PostsController < ApplicationController
     @post.destroy!
 
     respond_to do |format|
+      # 글이 지워졌으니 상세페이지로 갈 수 없음. 그래서 전체 목록(posts_path)으로 이동
       format.html { redirect_to posts_path, notice: "게시글을 삭제했습니다!", status: :see_other }
       format.json { head :no_content }
     end
